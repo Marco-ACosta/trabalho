@@ -65,15 +65,53 @@ class Caminhao(Veiculo):
     def __str__(self):
         return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_aluguel}"
     
-class Gerenciador():
-    def __init__(self):
-        self.veiculos = []
-
+class SistemaAluguel():
+    veiculos = []
+    
+    @staticmethod
     def adicionar_veiculo(self, veiculo):
         self.veiculos.append(veiculo)
 
+    @staticmethod
     def encontrar_veiculos_disponiveis(self, data):
-        pass
+        veiculos = []
+        for veiculo in self.veiculos:
+            if data not in veiculo.data_aluguel:
+                print(veiculo)
 
-    def alugar_veiculo(self, veiculo, data):
-        pass
+
+    def alugar_veiculo(self, veiculo, data, dias):
+        veiculo.data_aluguel.append(data)
+        print({"Veiculo": veiculo, "Data de aluguel": data, "Dias de aluguel": dias, "Preço total": veiculo.calcular_aluguel(dias)})
+        print("Veiculo alugado com sucesso!")
+
+
+def main():
+    sistema = SistemaAluguel()
+    while True:
+        print("1 - Adicionar veiculo")
+        print("2 - Encontrar veiculos disponíveis")
+        print("3 - Alugar veiculo")
+        print("4 - Sair")
+        opcao = input("Escolha uma opção: ")
+        if opcao == "1":
+            modelo = input("Modelo: ")
+            ano = int(input("Ano: "))
+            placa = input("Placa: ")
+            preco_por_dia = float(input("Preço por dia: "))
+            veiculo = Veiculo(modelo, ano, placa, preco_por_dia)
+            sistema.adicionar_veiculo(veiculo)
+        elif opcao == "2":
+            data = input("Data: ")
+            sistema.encontrar_veiculos_disponiveis(data)
+        elif opcao == "3":
+            veiculo = input("Veiculo: ")
+            data = input("Data: ")
+            dias = int(input("Dias: "))
+            sistema.alugar_veiculo(veiculo, data, dias)
+        elif opcao == "4":
+            break
+        else:
+            print("Opcão inválida. Tente novamente.")
+
+main()
