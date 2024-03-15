@@ -36,79 +36,97 @@ class Veiculo(ABC):
 class Carro(Veiculo):
     def __init__(self, modelo, ano, placa, preco_por_dia):
         super().__init__(modelo, ano, placa, preco_por_dia)
-        data_alugueis = [] 
+        self.data_alugueis = ['2022-01-01']
 
     def calcular_aluguel(self, dias):
         return dias * self.preco_por_dia
     def __str__(self):
-        return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_aluguel}"
+        return f"Modelo: Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
 
 class Moto(Veiculo):
     def __init__(self, modelo, ano, placa, preco_por_dia):
         super().__init__(modelo, ano, placa, preco_por_dia)
-        data_alugueis = [] 
+        self.data_alugueis = ['2022-01-01']
 
     def calcular_aluguel(self, dias):
         return dias * self.preco_por_dia
 
     def __str__(self):
-        return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_aluguel}"
+        return f"Modelo: Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
     
 class Caminhao(Veiculo):
     def __init__(self, modelo, ano, placa, preco_por_dia):
         super().__init__(modelo, ano, placa, preco_por_dia)
-        data_alugueis = [] 
+        self.data_alugueis = ['2022-01-01']
 
     def calcular_aluguel(self, dias):
         return dias * self.preco_por_dia
 
     def __str__(self):
-        return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_aluguel}"
+        return f"Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
     
 class SistemaAluguel():
-    veiculos = []
-    
     @staticmethod
-    def adicionar_veiculo(self, veiculo):
-        self.veiculos.append(veiculo)
+    def adicionar_veiculo(veiculo, veiculos):
+        veiculos.append(veiculo)
 
     @staticmethod
-    def encontrar_veiculos_disponiveis(self, data):
-        veiculos = []
-        for veiculo in self.veiculos:
-            if data not in veiculo.data_aluguel:
+    def encontrar_veiculos_disponiveis(data, veiculos):
+        for veiculo in veiculos:
+            if data not in veiculo.data_alugueis:
                 print(veiculo)
 
 
-    def alugar_veiculo(self, veiculo, data, dias):
-        veiculo.data_aluguel.append(data)
-        print({"Veiculo": veiculo, "Data de aluguel": data, "Dias de aluguel": dias, "Preço total": veiculo.calcular_aluguel(dias)})
-        print("Veiculo alugado com sucesso!")
-
+    def alugar_veiculo(placa, veiculos, data, dias):
+        for veiculo in veiculos:
+            if veiculo.placa == placa:
+                if data not in veiculo.data_alugueis:
+                    veiculo.data_alugueis.append(data)
+                    print({"Data de aluguel": data, "Dias de aluguel": dias, "Preço total": veiculo.calcular_aluguel(dias)})
+                    print("Veiculo alugado com sucesso!")
+                else:
+                    print("Veiculo indisponível")
+                    return
+            else: 
+                print("Veiculo indisponível")
+                return
 
 def main():
-    sistema = SistemaAluguel()
+    veiculos = []
     while True:
         print("1 - Adicionar veiculo")
         print("2 - Encontrar veiculos disponíveis")
         print("3 - Alugar veiculo")
         print("4 - Sair")
         opcao = input("Escolha uma opção: ")
+        
         if opcao == "1":
             modelo = input("Modelo: ")
             ano = int(input("Ano: "))
             placa = input("Placa: ")
             preco_por_dia = float(input("Preço por dia: "))
-            veiculo = Veiculo(modelo, ano, placa, preco_por_dia)
-            sistema.adicionar_veiculo(veiculo)
+            tipo = input("Tipo: ")
+            if tipo == "carro":
+                veiculo = Carro(modelo, ano, placa, preco_por_dia)
+            elif tipo == "moto":
+                veiculo = Moto(modelo, ano, placa, preco_por_dia)
+            elif tipo == "caminhão":
+                veiculo = Caminhao(modelo, ano, placa, preco_por_dia)
+            else:
+                print("Tipo inválido. Tente novamente.")
+                continue
+            SistemaAluguel.adicionar_veiculo(veiculo, veiculos)
+
         elif opcao == "2":
             data = input("Data: ")
-            sistema.encontrar_veiculos_disponiveis(data)
+            SistemaAluguel.encontrar_veiculos_disponiveis(data, veiculos)
+        
         elif opcao == "3":
-            veiculo = input("Veiculo: ")
+            placa = input("Placa: ")
             data = input("Data: ")
             dias = int(input("Dias: "))
-            sistema.alugar_veiculo(veiculo, data, dias)
+            SistemaAluguel.alugar_veiculo(placa, veiculos, data, dias)
+        
         elif opcao == "4":
             break
         else:
