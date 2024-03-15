@@ -41,7 +41,7 @@ class Carro(Veiculo):
     def calcular_aluguel(self, dias):
         return dias * self.preco_por_dia
     def __str__(self):
-        return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
+        return f"Modelo: Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
 
 class Moto(Veiculo):
     def __init__(self, modelo, ano, placa, preco_por_dia):
@@ -52,7 +52,7 @@ class Moto(Veiculo):
         return dias * self.preco_por_dia
 
     def __str__(self):
-        return f"Modelo: {self.modelo}, Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
+        return f"Modelo: Ano: {self.ano}, Placa: {self.placa}, Preço por dia: {self.preco_por_dia}, Data de aluguel: {self.data_alugueis}"
     
 class Caminhao(Veiculo):
     def __init__(self, modelo, ano, placa, preco_por_dia):
@@ -82,7 +82,7 @@ class SistemaAluguel():
             if veiculo.placa == placa:
                 if data not in veiculo.data_alugueis:
                     veiculo.data_alugueis.append(data)
-                    print({"Veiculo": veiculo, "Data de aluguel": data, "Dias de aluguel": dias, "Preço total": veiculo.calcular_aluguel(dias)})
+                    print({"Data de aluguel": data, "Dias de aluguel": dias, "Preço total": veiculo.calcular_aluguel(dias)})
                     print("Veiculo alugado com sucesso!")
                 else:
                     print("Veiculo indisponível")
