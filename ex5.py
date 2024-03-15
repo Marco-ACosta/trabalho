@@ -93,7 +93,6 @@ class SistemaAluguel():
 
 def main():
     veiculos = []
-
     while True:
         print("1 - Adicionar veiculo")
         print("2 - Encontrar veiculos disponíveis")
@@ -130,7 +129,6 @@ def main():
         
         elif opcao == "4":
             break
-        
         else:
             print("Opcão inválida. Tente novamente.")
 
